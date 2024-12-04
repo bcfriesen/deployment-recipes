@@ -87,8 +87,16 @@ jobs:
         with:
           credentials_json: ${{ secrets.GKE_SERVICE_ACCOUNT_KEY }}
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v4.2.0
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        version: 'latest'
 
-      - name: list Helm charts
-        run: helm ls -A
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
+
+#      - name: Set up Helm
+#        uses: azure/setup-helm@v4.2.0
+#
+#      - name: list Helm charts
+#        run: helm ls -A
