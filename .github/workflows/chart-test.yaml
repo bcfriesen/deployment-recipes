@@ -91,7 +91,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
   
       - name: 'Install kubectl plugin for gcloud CLI'
-        run: 'gcloud components install gke-gcloud-auth-plugin'
+        run: 'gcloud --quiet components install gke-gcloud-auth-plugin'
 
       - name: 'Configure kubectl to talk to OpenCHAMI cluster in GKE'
         run: 'gcloud container clusters get-credentials ochami --location us-central1'
