@@ -9,7 +9,7 @@ concurrency:
 on:
   pull_request:
     branches:
-      - main
+      - '*'
     paths:
       - lbnl/helm/**
   workflow_dispatch: {}
@@ -76,3 +76,34 @@ jobs:
         run: |
           echo "Some jobs failed or were cancelled."
           exit 1
+
+  deploy-to-gke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure GKE credentials
+        uses: google-github-actions/auth@v2.1.7
+        with:
+          credentials_json: ${{ secrets.GKE_SERVICE_ACCOUNT_KEY }}
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+  
+      - name: 'Install kubectl plugin for gcloud CLI'
+        run: 'gcloud --quiet components install gke-gcloud-auth-plugin'
+
+      - name: 'Configure kubectl to talk to OpenCHAMI cluster in GKE'
+        run: 'gcloud container clusters get-credentials ochami --location us-central1'
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.2.0
+
+      - name: install Helm chart
+        run: cd ./lbnl/helm && helm dependency build && bash ./scripts/install.sh us-central1-docker.pkg.dev/aesthetic-guild-393216/ochami
+
+      - name: uninstall Helm chart
+        run: helm uninstall ochami -n ochami
+
+      - name: delete PostgreSQL PVC because Helm won't do that for us
+        run: kubectl delete pvc/data-ochami-postgresql-0 -n ochami
