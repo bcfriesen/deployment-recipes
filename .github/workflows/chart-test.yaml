@@ -101,3 +101,15 @@ jobs:
 
       - name: list Helm charts
         run: helm ls -A
+
+      - name: install Helm chart
+        run: ./lbnl/helm/scripts/install.sh us-central1-docker.pkg.dev/aesthetic-guild-393216/ochami
+
+      - name: list Helm charts again
+        run: helm ls -A
+
+      - name: uninstall Helm chart
+        run: helm uninstall ochami -n ochami
+
+      - name: list Helm charts one more time
+        run: helm ls -A
