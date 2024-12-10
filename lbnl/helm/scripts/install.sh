@@ -4,7 +4,7 @@ repo="$1"
 
 helm install \
   ochami \
-  ./lbnl/helm \
+  . \
   -n ochami \
   --create-namespace \
   --set bss.deployment.image.repository="${repo}" \
