@@ -6,6 +6,7 @@ helm install \
   ochami \
   . \
   -n ochami \
+  --wait \
   --create-namespace \
   --set bss.deployment.image.repository="${repo}" \
   --set init.job.image.repository="${repo}" \
