@@ -94,13 +94,13 @@ jobs:
         run: 'gcloud --quiet components install gke-gcloud-auth-plugin'
 
       - name: 'Configure kubectl to talk to OpenCHAMI cluster in GKE'
-        run: 'gcloud container clusters get-credentials ochami --location us-central1'
+        run: 'gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --location ${{ secrets.GC_PROJECT_REGION }}'
 
       - name: Set up Helm
         uses: azure/setup-helm@v4.2.0
 
       - name: install Helm chart
-        run: cd ./lbnl/helm && helm dependency build && bash ./scripts/install.sh us-central1-docker.pkg.dev/aesthetic-guild-393216/ochami
+        run: cd ./lbnl/helm && helm dependency build && bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/${{ secrets.GC_ARTIFACT_REPO }}
 
       - name: uninstall Helm chart
         run: helm uninstall ochami -n ochami
