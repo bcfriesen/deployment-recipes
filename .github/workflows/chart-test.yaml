@@ -79,7 +79,9 @@ jobs:
 
   deploy-to-gke:
     runs-on: ['self-hosted']
-    working-directory: /work
+    defaults:
+      run:
+        working-directory: /work
     steps:
       - uses: actions/checkout@v4
 
