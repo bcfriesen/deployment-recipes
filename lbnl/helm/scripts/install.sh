@@ -1,11 +1,12 @@
 #!/bin/bash
 
 repo="$1"
+namespace="$2"
 
 helm install \
   ochami \
   . \
-  -n ochami \
+  -n "${namespace}" \
   --wait \
   --create-namespace \
   --set bss.deployment.image.repository="${repo}" \

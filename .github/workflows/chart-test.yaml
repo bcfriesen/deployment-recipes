@@ -103,7 +103,10 @@ jobs:
         run: echo "::add-mask::${{ secrets.GC_PROJECT_ID }}"
 
       - name: install Helm chart
-        run: cd ./lbnl/helm && helm dependency build && bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/ochami
+        run: |
+          cd ./lbnl/helm;
+          helm dependency build;
+          bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/ochami openchami-${{ github.event.pull_request.head.sha }}
 
       - name: uninstall Helm chart
         run: helm uninstall ochami -n ochami
