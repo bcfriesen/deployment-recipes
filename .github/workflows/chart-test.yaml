@@ -79,9 +79,6 @@ jobs:
 
   deploy-to-gke:
     runs-on: ['self-hosted']
-    defaults:
-      run:
-        working-directory: /work
     steps:
       - uses: actions/checkout@v4
 
@@ -94,7 +91,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
   
       - name: 'Install kubectl plugin for gcloud CLI'
-        run: 'gcloud --quiet components install gke-gcloud-auth-plugin'
+        run: 'gcloud --quiet components install gke-gcloud-auth-plugin kubectl'
 
       - name: 'Configure kubectl to talk to OpenCHAMI cluster in GKE'
         run: 'gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --location ${{ secrets.GC_PROJECT_REGION }}'
