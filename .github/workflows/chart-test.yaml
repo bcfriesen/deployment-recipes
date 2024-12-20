@@ -106,7 +106,7 @@ jobs:
         run: |
           cd ./lbnl/helm;
           helm dependency build;
-          bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/ochami openchami-${{ git rev-parse --short HEAD }}
+          bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/ochami openchami-$(git rev-parse --short HEAD)
 
       - name: uninstall Helm chart
         run: helm uninstall ochami -n ochami
