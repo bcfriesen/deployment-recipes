@@ -20,7 +20,7 @@ env:
 jobs:
   lint-test:
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: ['self-hosted']
     strategy:
       matrix:
         chart-name:
@@ -67,7 +67,7 @@ jobs:
   # Ref: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
   passed:
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: ['self-hosted']
     needs:
       - lint-test
     if: always()
