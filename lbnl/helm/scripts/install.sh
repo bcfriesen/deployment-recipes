@@ -5,7 +5,7 @@ namespace="$2"
 name="$3"
 
 helm install \
-  "${name} \
+  "${name}" \
   . \
   -n "${namespace}" \
   --wait \
