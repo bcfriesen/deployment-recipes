@@ -103,7 +103,7 @@ jobs:
         run: echo "::add-mask::${{ secrets.GC_PROJECT_ID }}"
 
       - name: install Helm chart
-        run: cd ./lbnl/helm && helm dependency build && bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/${{ secrets.GC_ARTIFACT_REPO }}
+        run: cd ./lbnl/helm && helm dependency build && bash ./scripts/install.sh ${{ secrets.GC_PROJECT_REGION }}-docker.pkg.dev/${{ secrets.GC_PROJECT_ID }}/ochami
 
       - name: uninstall Helm chart
         run: helm uninstall ochami -n ochami
