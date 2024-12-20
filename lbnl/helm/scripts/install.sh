@@ -2,9 +2,10 @@
 
 repo="$1"
 namespace="$2"
+name="$3"
 
 helm install \
-  ochami \
+  "${name} \
   . \
   -n "${namespace}" \
   --wait \
