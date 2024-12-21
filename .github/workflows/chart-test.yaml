@@ -114,4 +114,4 @@ jobs:
         run: helm uninstall ochami-services-$(git rev-parse --short HEAD) -n ${NAMESPACE}
 
       - name: delete PostgreSQL PVC because Helm won't do that for us
-        run: kubectl delete pvc/data-ochami-postgresql-0 -n ${NAMESPACE}
+        run: kubectl delete pvc/data-ochami-services-$(git rev-parse --short HEAD)-postgresql-0 -n ${NAMESPACE}
